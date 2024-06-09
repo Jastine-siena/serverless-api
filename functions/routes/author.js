@@ -23,19 +23,19 @@ router.post('/', async(req,res)=>{
     try{
         //validate request body
         if (!req.body.recipe || !req.body.ingredients) {
-            return res.status(400).json({message: 'Name and age are required'});
+            return res.status(400).json({message: 'Recipe and Ingredients are required'});
         }
 
         //check if the author's name already exists
         const existingAuthor = await AuthorModel.findOne({ recipe: req.body.recipe});
         if (existingAuthor) {
-            return res.status(400).json({message: 'Author already exists'});            
+            return res.status(400).json({message: 'Recipe already exists'});            
         }
         const author = new AuthorModel(req.body);
         const newAuthor = await author.save();
         res
         .status(201)
-        .json({message:'Author created successfully, author: newAuthor'});
+        .json({message:'Recipe added successfully, author: newAuthor'});
     }catch (err){
         res.status(400).json({message: err.message});
     }
@@ -71,7 +71,7 @@ router.put('/:id', getAuthor, async (req, res) => {
 router.delete('/:id', getAuthor, async(req, res)=>{
     try{
         await AuthorModel.findByIdAndDelete(req.params.id);
-        res.json({message: 'Author deleted'});
+        res.json({message: 'Recipe deleted'});
     }catch(err){
         res.status(500).json({message: err.message});
     }
@@ -82,7 +82,7 @@ async function getAuthor(req, res, next){
     try {
         const author = await AuthorModel.findById(req.params.id);
         if (!author){
-            return res.status(404).json({message: 'Author not found'});
+            return res.status(404).json({message: 'Recipe not found'});
         }
         res.author = author;
         next();
