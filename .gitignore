@@ -1,0 +1,22 @@
+#ignore node_modules directory
+node_modules/
+.netlify
+
+#ignore environment-specific files
+.env
+.env.local
+.env.*.local
+
+#ignore logs and temporary files
+*.logs
+*.temporary
+
+#ignore editor-specific files
+.vscode/
+.idea/
+
+#ignore package-lock.json
+package-lock.json
+
+#ignore yarn.lock for yarn
+yarn.lock
